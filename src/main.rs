@@ -191,7 +191,6 @@ async fn handle_process(
 ) -> Result<(), ()> {
     let pid = child.id().unwrap_or(0);
     let mut buffer = vec![0u8; 256];
-    let mut banner = 0;
     loop {
         tokio::select! {
 			read = tty.read(&mut buffer[1..]) => {
