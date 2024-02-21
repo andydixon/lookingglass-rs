@@ -540,6 +540,23 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b5e6163cb8c49088c2c36f57875e58ccd8c87c7427f7fbd50ea6710b2f3f2e8f"
 
 [[package]]
+name = "lookingglass"
+version = "2.0.0"
+dependencies = [
+ "async-shutdown",
+ "clap",
+ "futures",
+ "hyper",
+ "hyper-tungstenite",
+ "libc",
+ "log",
+ "pretty_env_logger",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
 name = "memchr"
 version = "2.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1045,23 +1062,6 @@ name = "wasi"
 version = "0.11.0+wasi-snapshot-preview1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9c8d87e72b64a3b4db28d11ce29237c246188f4f51057d65a7eab63b7987e423"
-
-[[package]]
-name = "webterm-server"
-version = "0.1.0"
-dependencies = [
- "async-shutdown",
- "clap",
- "futures",
- "hyper",
- "hyper-tungstenite",
- "libc",
- "log",
- "pretty_env_logger",
- "serde",
- "serde_json",
- "tokio",
-]
 
 [[package]]
 name = "winapi"

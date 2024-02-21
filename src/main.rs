@@ -25,7 +25,7 @@ struct Options {
 
     /// The address to bind to.
     #[clap(short, long)]
-    #[clap(default_value = "localhost:8080")]
+    #[clap(default_value = "127.0.0.1:8080")]
     listen: String,
 
     /// The command to execute
