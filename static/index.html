@@ -1,0 +1,355 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="xtermjs/xterm.css" />
+		<script src="xtermjs/xterm.js"></script>
+		<script src="xtermjs/xterm-addon-fit.js"></script>
+		<script src="xtermjs/xterm-addon-search.js"></script>
+		<script src="xtermjs/xterm-addon-webgl.js"></script>
+		<script src="xtermjs/xterm-addon-web-links.js"></script>
+		<style type="text/css">
+			body {
+				margin: 0;
+			}
+			html, body, #terminal {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+		  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style>
+  * {
+    transition: all .6s;
+    overflow: hidden;
+    font-family: 'VT323', monospace;
+  }
+
+  body {
+    background: #000000;
+    color: #33ff00;
+    overflow: hidden;
+  }
+
+  .cursor {
+    display: inline-block;
+    margin-bottom: 0px;
+    padding-right: 12px;
+    animation: type .5s alternate infinite
+  }
+
+  @keyframes type {
+    from {
+      box-shadow: inset -3px 0 0 #33ff00
+    }
+
+    to {
+      box-shadow: inset -3px 0 0 transparent
+    }
+  }
+
+  a {
+    color: #33ff00;
+    text-decoration: none;
+  }
+
+  body {
+    background: #111;
+    color: #33ff00;
+    padding: 0;
+  }
+
+  @keyframes flicker {
+    0% {
+      opacity: 0.44036;
+    }
+
+    5% {
+      opacity: 0.97484;
+    }
+
+    10% {
+      opacity: 0.06712;
+    }
+
+    15% {
+      opacity: 0.30592;
+    }
+
+    20% {
+      opacity: 0.28514;
+    }
+
+    25% {
+      opacity: 0.9113;
+    }
+
+    30% {
+      opacity: 0.71661;
+    }
+
+    35% {
+      opacity: 0.76741;
+    }
+
+    40% {
+      opacity: 0.41113;
+    }
+
+    45% {
+      opacity: 0.59419;
+    }
+
+    50% {
+      opacity: 0.08106;
+    }
+
+    55% {
+      opacity: 0.76961;
+    }
+
+    60% {
+      opacity: 0.8226;
+    }
+
+    65% {
+      opacity: 0.89486;
+    }
+
+    70% {
+      opacity: 0.38036;
+    }
+
+    75% {
+      opacity: 0.54427;
+    }
+
+    80% {
+      opacity: 0.72292;
+    }
+
+    85% {
+      opacity: 0.51514;
+    }
+
+    90% {
+      opacity: 0.26099;
+    }
+
+    95% {
+      opacity: 0.57594;
+    }
+
+    100% {
+      opacity: 0.28477;
+    }
+  }
+
+  .container {
+    background: #121010;
+    width: 100vw;
+    height: 100vh;
+    display: none !;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .container::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(18, 16, 16, 0.1);
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .container::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 2;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+  }
+
+  .container::after {
+    animation: flicker 0.15s infinite;
+  }
+
+  @keyframes turn-on {
+    0% {
+      transform: scale(1, 0.8) translate3d(0, 0, 0);
+      -webkit-filter: brightness(30);
+      filter: brightness(30);
+      opacity: 1;
+    }
+
+    3.5% {
+      transform: scale(1, 0.8) translate3d(0, 100%, 0);
+    }
+
+    3.6% {
+      transform: scale(1, 0.8) translate3d(0, -100%, 0);
+      opacity: 1;
+    }
+
+    9% {
+      transform: scale(1.3, 0.6) translate3d(0, 100%, 0);
+      -webkit-filter: brightness(30);
+      filter: brightness(30);
+      opacity: 0;
+    }
+
+    11% {
+      transform: scale(1, 1) translate3d(0, 0, 0);
+      -webkit-filter: contrast(0) brightness(0);
+      filter: contrast(0) brightness(0);
+      opacity: 0;
+    }
+
+    100% {
+      transform: scale(1, 1) translate3d(0, 0, 0);
+      -webkit-filter: contrast(1) brightness(1.2) saturate(1.3);
+      filter: contrast(1) brightness(1.2) saturate(1.3);
+      opacity: 1;
+    }
+  }
+
+  .screen {
+    width: 100%;
+    height: 100%;
+    border: none;
+    visibility: hidden;
+    animation: turn-off 0.55s cubic-bezier(0.23, 1, 0.32, 1);
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes overlay-anim {
+    0% {
+      visibility: hidden;
+    }
+
+    20% {
+      visibility: hidden;
+    }
+
+    21% {
+      visibility: visible;
+    }
+
+    100% {
+      visibility: hidden;
+    }
+  }
+
+  .overlay {
+    color: #00FF00;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 60px;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .container .overlay {
+    animation: overlay-anim 5s linear;
+    animation-fill-mode: forwards;
+  }
+  </style>
+	</head>
+	<body><div class"container"><div class="screen">
+		<div id="terminal" class="screen"></div>
+		<script>
+			const term = new Terminal({
+				fontFamily: "monospace",
+			});
+
+			term.loadAddon(new WebLinksAddon.WebLinksAddon());
+
+			const search = new SearchAddon.SearchAddon();
+			term.loadAddon(search);
+
+			const fit = new FitAddon.FitAddon();
+			term.loadAddon(fit);
+			fit.fit();
+
+			function enableWebGl() {
+				const webgl = new WebglAddon.WebglAddon();
+				webgl.onContextLoss(() => {
+					webgl.dispose();
+					enableWebGl();
+				});
+				term.loadAddon(webgl);
+			}
+			enableWebGl();
+
+			const D = 0x64;
+			const R = 0x72;
+
+			const protocol = (location.protocol === 'https:' ? 'wss' : 'ws');
+			const port = (location.port ? `:${location.port}` : '');
+			const socketURL = `${protocol}://${location.hostname}${port}/terminal/`;
+			const sock = new WebSocket(socketURL);
+			sock.binaryType = "arraybuffer";
+			sock.addEventListener('open', () => {
+				const listeners = [];
+				listeners.push(term.onData(data => {
+					sock.send(new Blob(['d', data]));
+				}));
+				listeners.push(term.onBinary(data => {
+					sock.send(new Blob(['d', data]));
+				}));
+				listeners.push(term.onResize(size => {
+					const message = new ArrayBuffer(9);
+					const writer = new DataView(message);
+					writer.setUint8(0, R);
+					writer.setUint32(1, size.cols, true);
+					writer.setUint32(5, size.rows, true);
+					sock.send(message);
+				}));
+				sock.addEventListener('close', () => {
+					term.writeln("");
+					term.writeln("Connection closed.");
+					for (const listener of listeners) {
+						listener.dispose()
+					}
+				});
+				sock.addEventListener('message', message => {
+					if (message.data instanceof ArrayBuffer) {
+						const reader = new DataView(message.data);
+						const type = reader.getUint8(0);
+						if (type == D) {
+							term.write(new Uint8Array(message.data.slice(1)))
+						} else {
+							console.log(`Received unknown message from websocket, type: ${type}`);
+						}
+					} else {
+						console.log(`Received text message from websocket, expected binary`);
+					}
+				});
+
+				fit.fit()
+			});
+
+			term.open(document.getElementById('terminal'));
+			window.addEventListener('resize', () => {
+				fit.fit()
+			});
+		</script>
+			</div></div>
+	</body>
+</html>
